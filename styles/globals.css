@@ -1,0 +1,170 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  /* Stelora Media logo palette + Practice Domains light layout */
+  --stelora-canvas: #f4f2ec;
+  --stelora-ink: #0c1638;
+  --stelora-navy: #1a307b;
+  --stelora-cream: #fff4e0;
+  --stelora-muted: #5c6480;
+  --stelora-line: #d4d7e2;
+  --stelora-accent: #1a307b;
+  --stelora-surface: #ffffff;
+  --stelora-on-image: #fff4e0;
+  --stelora-black: #050505;
+  --font-display: "Space Grotesk", sans-serif;
+  --font-body: "Manrope", sans-serif;
+  --font-hand: "Caveat", cursive;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  /* Lenis owns smooth scrolling; keep native fallback for reduced-motion / no-JS */
+  scroll-behavior: auto;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  background-color: var(--stelora-canvas);
+  background-image:
+    radial-gradient(90% 60% at 50% -5%, rgba(26, 48, 123, 0.08), transparent 55%),
+    linear-gradient(180deg, #f7f5ef 0%, var(--stelora-canvas) 40%, #ebe8e0 100%);
+  color: var(--stelora-ink);
+  font-family: var(--font-body);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+::selection {
+  background: var(--stelora-navy);
+  color: var(--stelora-cream);
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* Premium pill button + glass shine (L → R) */
+@layer components {
+  .btn-pill {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    overflow: hidden;
+    isolation: isolate;
+    border-radius: 9999px;
+    font-family: var(--font-display);
+    font-weight: 700;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    transition:
+      background-color 0.35s ease,
+      color 0.35s ease,
+      border-color 0.35s ease,
+      box-shadow 0.35s ease,
+      transform 0.35s ease;
+  }
+
+  .btn-pill::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    pointer-events: none;
+    background: linear-gradient(
+      105deg,
+      transparent 28%,
+      rgba(255, 255, 255, 0.08) 40%,
+      rgba(255, 255, 255, 0.42) 50%,
+      rgba(255, 255, 255, 0.08) 60%,
+      transparent 72%
+    );
+    transform: translateX(-130%) skewX(-18deg);
+    transition: none;
+  }
+
+  .btn-pill:hover::before,
+  .btn-pill:focus-visible::before {
+    animation: btn-glass-shine 0.85s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  }
+
+  .btn-pill > * {
+    position: relative;
+    z-index: 2;
+  }
+
+  .btn-pill-primary {
+    background-color: var(--stelora-navy);
+    color: var(--stelora-cream);
+    box-shadow: 0 8px 22px rgba(12, 22, 56, 0.14);
+  }
+
+  .btn-pill-primary:hover {
+    background-color: var(--stelora-ink);
+    box-shadow: 0 12px 28px rgba(12, 22, 56, 0.2);
+  }
+
+  .btn-pill-outline {
+    border: 1px solid var(--stelora-navy);
+    background-color: rgba(244, 242, 236, 0.82);
+    color: var(--stelora-navy);
+    backdrop-filter: blur(8px);
+  }
+
+  .btn-pill-outline:hover {
+    background-color: var(--stelora-navy);
+    color: var(--stelora-cream);
+    box-shadow: 0 12px 28px rgba(12, 22, 56, 0.16);
+  }
+
+  .btn-pill-outline:hover::before {
+    background: linear-gradient(
+      105deg,
+      transparent 28%,
+      rgba(255, 255, 255, 0.06) 40%,
+      rgba(255, 255, 255, 0.32) 50%,
+      rgba(255, 255, 255, 0.06) 60%,
+      transparent 72%
+    );
+  }
+}
+
+@keyframes btn-glass-shine {
+  0% {
+    transform: translateX(-130%) skewX(-18deg);
+  }
+  100% {
+    transform: translateX(130%) skewX(-18deg);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .btn-pill:hover::before,
+  .btn-pill:focus-visible::before {
+    animation: none;
+  }
+}
+

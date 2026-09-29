@@ -1,0 +1,81 @@
+.orbit-stickers {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.orbit-sticker {
+  position: absolute;
+  filter: drop-shadow(0 6px 14px rgba(12, 22, 56, 0.12));
+  opacity: 0.72;
+}
+
+.orbit-sticker__inner {
+  transform: rotate(var(--orbit-rot, 0deg)) scale(var(--orbit-scale, 1));
+  animation: orbit-sticker-float 7s ease-in-out infinite;
+}
+
+.orbit-sticker__svg {
+  display: block;
+  width: 56px;
+  height: 56px;
+}
+
+.orbit-sticker__svg--wide {
+  width: 88px;
+  height: auto;
+}
+
+.orbit-sticker__svg--sm {
+  width: 44px;
+  height: 44px;
+}
+
+/* Keep center clear for the carousel */
+.orbit-stickers::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 52%;
+  width: min(520px, 72vw);
+  height: min(420px, 58vh);
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+}
+
+@keyframes orbit-sticker-float {
+  0%,
+  100% {
+    translate: 0 0;
+  }
+  50% {
+    translate: 0 -5px;
+  }
+}
+
+@media (max-width: 768px) {
+  .orbit-sticker {
+    opacity: 0.55;
+  }
+
+  .orbit-sticker__inner {
+    transform: rotate(var(--orbit-rot, 0deg)) scale(calc(var(--orbit-scale, 1) * 0.82));
+  }
+
+  .orbit-sticker__svg {
+    width: 44px;
+    height: 44px;
+  }
+
+  .orbit-sticker__svg--wide {
+    width: 72px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .orbit-sticker__inner {
+    animation: none;
+  }
+}

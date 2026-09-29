@@ -1,0 +1,36 @@
+.press-print-stage {
+  width: 100%;
+}
+
+.press-print-crumple.paper-crumple {
+  width: 100%;
+  max-width: 100%;
+}
+
+/* Barely-there float — elegant, not bouncy */
+.press-print-float {
+  animation: press-print-float 6.5s ease-in-out infinite;
+  will-change: transform;
+}
+
+@keyframes press-print-float {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-5px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .press-print-float {
+    animation: none;
+  }
+}
+
+@media (max-width: 767px) {
+  .press-print-crumple.paper-crumple {
+    height: 440px !important;
+  }
+}

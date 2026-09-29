@@ -1,0 +1,22 @@
+.music-bar {
+  display: inline-block;
+  transform-origin: bottom;
+  animation: music-pulse 0.55s ease-in-out infinite alternate;
+}
+
+.music-bar--delay {
+  animation-delay: 0.12s;
+}
+
+.music-bar--delay2 {
+  animation-delay: 0.24s;
+}
+
+@keyframes music-pulse {
+  from {
+    transform: scaleY(0.45);
+  }
+  to {
+    transform: scaleY(1);
+  }
+}

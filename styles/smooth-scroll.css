@@ -1,0 +1,22 @@
+/* Lenis base — keep native scrollbar behavior tidy with smooth engine */
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
+
+/* Immersive sections: hint the engine + slightly longer visual presence */
+[data-scroll-dwell] {
+  scroll-margin-top: 0;
+}

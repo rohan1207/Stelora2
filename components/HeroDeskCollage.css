@@ -1,0 +1,43 @@
+.hero-desk-collage {
+  max-height: 220px;
+}
+
+.hero-desk-collage__stage {
+  aspect-ratio: 640 / 120;
+  pointer-events: none;
+}
+
+.hero-desk-collage__stage .desk-diary,
+.hero-desk-collage__stage .desk-prop {
+  pointer-events: auto;
+}
+
+.hero-desk-collage img,
+.hero-desk-collage__paper {
+  display: block;
+  height: auto;
+  max-height: none;
+}
+
+.desk-diary {
+  aspect-ratio: 1;
+}
+
+@media (min-width: 768px) {
+  .hero-desk-collage {
+    max-height: 260px;
+  }
+}
+
+@media (max-width: 480px) {
+  .hero-desk-collage {
+    max-height: 160px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .desk-diary__img,
+  .desk-prop {
+    transition: none !important;
+  }
+}

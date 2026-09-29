@@ -1,0 +1,22 @@
+.ticket-tear-hint .palm-hint-icon {
+  color: #ffffff;
+  font-size: 1.55rem;
+  line-height: 1;
+  filter:
+    drop-shadow(-1.35px 0 0 #1a307b)
+    drop-shadow(1.35px 0 0 #1a307b)
+    drop-shadow(0 -1.35px 0 #1a307b)
+    drop-shadow(0 1.35px 0 #1a307b);
+}
+
+.ticket-tear-hint__label {
+  color: #ffffff;
+  -webkit-text-stroke: 1.2px #1a307b;
+  paint-order: stroke fill;
+  text-shadow:
+    -1px -1px 0 #1a307b,
+    1px -1px 0 #1a307b,
+    -1px 1px 0 #1a307b,
+    1px 1px 0 #1a307b;
+  white-space: nowrap;
+}

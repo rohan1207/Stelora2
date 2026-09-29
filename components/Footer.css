@@ -1,0 +1,66 @@
+.footer-corner {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: 72px;
+  height: 72px;
+  color: var(--stelora-navy);
+}
+
+.footer-corner__bracket {
+  position: absolute;
+  width: 14px;
+  height: 14px;
+  border-color: currentColor;
+  border-style: solid;
+  border-width: 0;
+}
+
+.footer-corner__bracket--tl {
+  top: 0;
+  left: 0;
+  border-top-width: 1.5px;
+  border-left-width: 1.5px;
+}
+
+.footer-corner__bracket--tr {
+  top: 0;
+  right: 0;
+  border-top-width: 1.5px;
+  border-right-width: 1.5px;
+}
+
+.footer-corner__bracket--bl {
+  bottom: 0;
+  left: 0;
+  border-bottom-width: 1.5px;
+  border-left-width: 1.5px;
+}
+
+.footer-corner__bracket--br {
+  bottom: 0;
+  right: 0;
+  border-bottom-width: 1.5px;
+  border-right-width: 1.5px;
+}
+
+.footer-corner__arrow {
+  display: block;
+}
+
+@media (min-width: 1024px) {
+  .footer-corner {
+    width: 88px;
+    height: 88px;
+  }
+
+  .footer-corner__bracket {
+    width: 18px;
+    height: 18px;
+  }
+
+  .footer-corner__arrow {
+    width: 34px;
+    height: 34px;
+  }
+}
