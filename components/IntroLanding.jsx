@@ -5,10 +5,6 @@ const VIDEO_SRC = "/video.mp4";
 /** Minimum landing time — always wait this long before revealing home. */
 const PLAY_SECONDS = 6;
 
-if (typeof window !== "undefined") {
-  warmLanyardPipeline();
-}
-
 /**
  * White landing overlay — video + % for at least 6s while home (ID card) mounts underneath.
  */

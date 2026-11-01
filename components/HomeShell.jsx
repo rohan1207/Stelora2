@@ -13,11 +13,11 @@ import BrandFocus from "@/components/BrandFocus";
 import Footer from "@/components/Footer";
 import IntroLanding from "@/components/IntroLanding";
 import { INTRO_SESSION_KEY, warmLanyardPipeline } from "@/lib/lanyardWarm";
+import { SITE } from "@/data/siteContent";
 
-const SITE_URL = "https://stelora.com";
-const TITLE = "Stelora | Social Media Marketing, SEO & Brand Growth";
-const DESCRIPTION =
-  "Stelora is a full-service social media marketing brand specializing in SEO, Meta & Google Ads, brand optimization, websites, photoshoots, and content that grows businesses.";
+const SITE_URL = SITE.url;
+const TITLE = `${SITE.name} | Performance Marketing, Social & Web`;
+const DESCRIPTION = SITE.description;
 
 /**
  * Full site with optional 6s intro overlay.
@@ -50,17 +50,24 @@ export default function HomeShell() {
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "MarketingAgency",
-    name: "Stelora",
+    name: SITE.name,
     url: SITE_URL,
     description: DESCRIPTION,
-    areaServed: "Worldwide",
+    email: SITE.email,
+    areaServed: "India",
+    address: {
+      "@type": "PostalAddress",
+      addressLocality: "Pune",
+      addressRegion: "Maharashtra",
+      addressCountry: "IN",
+    },
     serviceType: [
       "Social Media Marketing",
+      "Performance Marketing",
       "Search Engine Optimization",
       "Brand Optimization",
       "Website Design",
       "Commercial Photoshoots",
-      "Content Writing",
       "Google Ads",
       "Meta Ads",
     ],
@@ -76,14 +83,14 @@ export default function HomeShell() {
           content="Stelora, social media marketing, SEO, brand optimization, Meta ads, Google ads, content writing, website design, photoshoot agency"
         />
         <meta name="robots" content="index, follow" />
-        <meta name="author" content="Stelora" />
+        <meta name="author" content={SITE.name} />
         <link rel="canonical" href={SITE_URL} />
 
         <meta property="og:type" content="website" />
         <meta property="og:url" content={SITE_URL} />
         <meta property="og:title" content={TITLE} />
         <meta property="og:description" content={DESCRIPTION} />
-        <meta property="og:site_name" content="Stelora" />
+        <meta property="og:site_name" content={SITE.name} />
         <meta property="og:image" content={`${SITE_URL}/images/hero.jpg`} />
 
         <meta name="twitter:card" content="summary_large_image" />

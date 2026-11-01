@@ -1,6 +1,7 @@
 import dynamic from "next/dynamic";
 import { useEffect, useRef, useState } from "react";
 import { motion } from "framer-motion";
+import ClientOnly from "@/components/ClientOnly";
 
 const FlexCarousel = dynamic(() => import("@/components/FlexCarousel"), {
   ssr: false,
@@ -170,6 +171,13 @@ export default function FlexReel() {
         </div>
 
         <div className="relative z-10 min-h-0 w-full flex-1 pb-4">
+          <ClientOnly
+            fallback={
+              <div className="flex h-full items-center justify-center font-body text-sm text-stelora-muted">
+                Loading reel…
+              </div>
+            }
+          >
           <FlexCarousel
             items={REEL_ITEMS}
             index={index}
@@ -185,6 +193,7 @@ export default function FlexReel() {
             captureWheel={false}
             drag={false}
           />
+          </ClientOnly>
         </div>
       </div>
     </section>

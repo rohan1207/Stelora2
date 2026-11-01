@@ -1,5 +1,6 @@
 import dynamic from "next/dynamic";
 import { motion } from "framer-motion";
+import ClientOnly from "@/components/ClientOnly";
 
 const CircularCarousel = dynamic(() => import("@/components/CircularCarousel"), {
   ssr: false,
@@ -155,6 +156,13 @@ export default function CircularReel() {
         </div>
 
         <div className="relative z-10 min-h-0 w-full flex-1">
+          <ClientOnly
+            fallback={
+              <div className="flex h-full items-center justify-center font-body text-sm text-stelora-muted">
+                Loading ring…
+              </div>
+            }
+          >
           <CircularCarousel
             items={RING_ITEMS}
             preset="cylinder"
@@ -168,6 +176,7 @@ export default function CircularReel() {
             cornerRadius={16}
             perspective={2200}
           />
+          </ClientOnly>
         </div>
       </div>
     </section>

@@ -58,7 +58,7 @@ export default function BounceBack() {
           transition={{ duration: 0.65, delay: 0.14, ease: [0.22, 1, 0.36, 1] }}
           className="mt-5 max-w-sm font-body text-[0.9rem] leading-relaxed text-stelora-muted md:mt-6 md:text-[0.95rem]"
         >
-          Partnerships that return — again and again.
+          Real brands. Real growth. Together.
         </motion.p>
       </div>
     </section>

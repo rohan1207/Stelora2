@@ -1,12 +1,20 @@
 import { useEffect } from "react";
 
-function isHomePath(pathname) {
-  return pathname === "/" || pathname === "/home" || pathname === "";
-}
+const ALLOWED_PATHS = new Set([
+  "/",
+  "/home",
+  "/services",
+  "/about",
+  "/packages",
+  "/testimonials",
+  "/case-studies",
+  "/contact",
+]);
 
 /**
- * Showcase mode: never leave the home page.
- * Hash jumps on this page are allowed; mail, tel, and off-site/other routes are blocked.
+ * Keep navigation on Stelora site pages.
+ * Allows in-site routes + mailto to steloramedia@gmail.com + hash jumps.
+ * Blocks unknown external destinations.
  */
 export default function StayOnHome() {
   useEffect(() => {
@@ -22,6 +30,7 @@ export default function StayOnHome() {
       if (raw.startsWith("#")) return;
 
       const lower = raw.toLowerCase();
+      if (lower.startsWith("mailto:steloramedia@gmail.com")) return;
       if (
         lower.startsWith("mailto:") ||
         lower.startsWith("tel:") ||
@@ -35,10 +44,19 @@ export default function StayOnHome() {
       try {
         const url = new URL(raw, window.location.href);
         if (url.origin !== window.location.origin) {
+          // Allow official social profiles only
+          const host = url.hostname.replace(/^www\./, "");
+          if (
+            (host === "instagram.com" && url.pathname.toLowerCase().includes("steloramedia")) ||
+            (host === "linkedin.com" && url.pathname.toLowerCase().includes("stelora"))
+          ) {
+            return;
+          }
           event.preventDefault();
           return;
         }
-        if (!isHomePath(url.pathname)) {
+        const path = url.pathname.replace(/\/$/, "") || "/";
+        if (!ALLOWED_PATHS.has(path)) {
           event.preventDefault();
         }
       } catch {

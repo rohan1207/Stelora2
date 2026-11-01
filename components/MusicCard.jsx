@@ -145,6 +145,7 @@ export default function MusicCard({
       onMouseLeave={stop}
       onFocus={start}
       onBlur={stop}
+      onClick={() => (playing ? stop() : start())}
       tabIndex={0}
       aria-label={`${title} by ${artist}. Hover to preview audio.`}
     >

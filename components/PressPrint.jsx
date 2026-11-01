@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import dynamic from "next/dynamic";
 import { motion } from "framer-motion";
+import ClientOnly from "@/components/ClientOnly";
 
 const PaperCrumple = dynamic(() => import("@/components/PaperCrumple"), {
   ssr: false,
@@ -568,6 +569,7 @@ export default function PressPrint() {
         {src ? (
           <div ref={stageRef} className="press-print-stage w-full">
             <div className={isOpen ? "press-print-float" : undefined}>
+              <ClientOnly>
               <PaperCrumple
                 src={src}
                 alt="A scrapbook page from Divya Chauhan with her portrait and stickers"
@@ -599,6 +601,7 @@ export default function PressPrint() {
                 returnToOrigin
                 className="press-print-crumple w-full"
               />
+              </ClientOnly>
             </div>
           </div>
         ) : (

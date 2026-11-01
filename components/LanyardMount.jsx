@@ -2,12 +2,18 @@ import { useEffect, useState } from "react";
 import { getLanyard, warmLanyardPipeline } from "@/lib/lanyardWarm";
 
 export default function LanyardMount(props) {
-  const [Lanyard, setLanyard] = useState(() => getLanyard());
+  // Always start empty so SSR and the first client paint match.
+  // (getLanyard() may already be warm on the client from intro import.)
+  const [Lanyard, setLanyard] = useState(null);
   const [failed, setFailed] = useState(false);
 
   useEffect(() => {
-    if (Lanyard) return undefined;
     let alive = true;
+    const existing = getLanyard();
+    if (existing) {
+      setLanyard(() => existing);
+      return undefined;
+    }
     warmLanyardPipeline()
       .then((Comp) => {
         if (!alive) return;
@@ -20,7 +26,7 @@ export default function LanyardMount(props) {
     return () => {
       alive = false;
     };
-  }, [Lanyard]);
+  }, []);
 
   if (failed) {
     return (

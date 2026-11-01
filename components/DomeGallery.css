@@ -195,3 +195,10 @@ main.sphere-main {
 body.dg-scroll-lock {
   overflow: hidden;
 }
+
+@media (max-width: 819px) {
+  .sphere-root {
+    min-height: 360px;
+    --viewer-pad: 28px;
+  }
+}

@@ -716,7 +716,7 @@ export default function SteloraBreaker() {
     <section
       id="lift"
       data-scroll-dwell
-      className="stelora-breaker relative flex h-[100svh] max-h-[100svh] flex-col overflow-hidden border-t border-stelora-line bg-stelora-canvas"
+      className="stelora-breaker relative flex min-h-[100svh] flex-col overflow-hidden border-t border-stelora-line bg-stelora-canvas md:h-[100svh] md:max-h-[100svh]"
       aria-labelledby="breaker-heading"
     >
       <div
@@ -760,7 +760,7 @@ export default function SteloraBreaker() {
       </div>
 
       <div className="relative z-10 min-h-0 flex-1 px-3 pb-3 pt-2 md:px-8 md:pb-4">
-        <div className="stelora-breaker__shell h-full max-h-[min(720px,calc(100svh-200px))]">
+        <div className="stelora-breaker__shell h-full min-h-[420px] max-h-none md:max-h-[min(720px,calc(100svh-200px))]">
           <div className="stelora-breaker__toolbar">
             <div className="stelora-breaker__stat">
               <span className="stelora-breaker__stat-label">Wins unlocked</span>

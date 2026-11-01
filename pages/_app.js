@@ -1,9 +1,11 @@
 import { config } from "@fortawesome/fontawesome-svg-core";
 import "@fortawesome/fontawesome-svg-core/styles.css";
+import Head from "next/head";
 import "lenis/dist/lenis.css";
 import "@/styles/globals.css";
 import "@/styles/smooth-scroll.css";
 import "@/styles/device-gate.css";
+import "@/styles/pages.css";
 import "@/components/CursorGrid.css";
 import "@/components/TearTicket.css";
 import "@/components/Folder.css";
@@ -26,7 +28,6 @@ import "@/components/IntroLanding.css";
 import "@/components/Footer.css";
 import "@/components/TechText.css";
 import SmoothScroll from "@/components/SmoothScroll";
-import PhoneBlock from "@/components/PhoneBlock";
 import StayOnHome from "@/components/StayOnHome";
 
 config.autoAddCss = false;
@@ -34,12 +35,12 @@ config.autoAddCss = false;
 export default function App({ Component, pageProps }) {
   return (
     <>
-      <PhoneBlock />
+      <Head>
+        <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+      </Head>
       <StayOnHome />
-      <div className="site-desktop">
-        <SmoothScroll />
-        <Component {...pageProps} />
-      </div>
+      <SmoothScroll />
+      <Component {...pageProps} />
     </>
   );
 }

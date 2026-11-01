@@ -10,6 +10,7 @@ import HeroDeskCollage from "@/components/HeroDeskCollage";
 import LedClock from "@/components/LedClock";
 import IdCardDragHint from "@/components/IdCardDragHint";
 import TicketTearHint from "@/components/TicketTearHint";
+import ClientOnly from "@/components/ClientOnly";
 
 const TearTicket = dynamic(() => import("@/components/TearTicket"), { ssr: false });
 const CursorGridClient = dynamic(() => import("@/components/CursorGrid"), { ssr: false });
@@ -45,31 +46,33 @@ export default function Hero() {
 
   return (
     <section
-      className="relative h-[100svh] max-h-[100svh] overflow-hidden bg-stelora-canvas"
+      className="relative min-h-[100svh] overflow-x-hidden bg-stelora-canvas pt-[4.25rem] md:h-[100svh] md:max-h-[100svh] md:overflow-hidden md:pt-0"
       aria-labelledby="hero-brand"
     >
       <div className="pointer-events-auto absolute inset-0 z-0">
-        <CursorGridClient
-          cellSize={70}
-          color="#1A307B"
-          gridColor="#9AA3B8"
-          radius={140}
-          falloff="smooth"
-          holdTime={400}
-          fadeDuration={800}
-          lineWidth={1.55}
-          maxOpacity={1}
-          fillOpacity={0.08}
-          gridOpacity={0.28}
-          cellRadius={0}
-          clickPulse
-          pulseSpeed={600}
-        />
+        <ClientOnly>
+          <CursorGridClient
+            cellSize={70}
+            color="#1A307B"
+            gridColor="#9AA3B8"
+            radius={140}
+            falloff="smooth"
+            holdTime={400}
+            fadeDuration={800}
+            lineWidth={1.55}
+            maxOpacity={1}
+            fillOpacity={0.08}
+            gridOpacity={0.28}
+            cellRadius={0}
+            clickPulse
+            pulseSpeed={600}
+          />
+        </ClientOnly>
       </div>
 
       {/* Lanyard stage — idle sway is on this wrapper only; Lanyard itself unchanged */}
       <div
-        className={`pointer-events-auto absolute inset-0 z-[15] ${
+        className={`pointer-events-auto relative z-[15] h-[34svh] min-h-[200px] w-full md:absolute md:inset-0 md:h-auto md:min-h-0 ${
           cardIdle ? "lanyard-idle-sway" : "lanyard-idle-sway is-interacting"
         }`}
         onPointerDown={markCardActive}
@@ -94,11 +97,11 @@ export default function Hero() {
 
       <IdCardDragHint visible={cardIdle} />
 
-      <div className="pointer-events-none relative z-20 mx-auto h-full w-full max-w-7xl px-4 pt-[5.25rem] md:px-8">
-        <div className="relative h-[calc(100svh-5.25rem)] w-full">
+      <div className="pointer-events-none relative z-20 mx-auto h-auto w-full max-w-7xl px-4 pb-10 pt-2 md:h-full md:px-8 md:pb-0 md:pt-[5.25rem]">
+        <div className="relative flex w-full flex-col items-center gap-5 md:block md:h-[calc(100svh-5.25rem)] md:gap-0">
           {/* Desk flat-lay collage — upper center */}
           <motion.div
-            className="pointer-events-auto absolute left-1/2 top-[1%] z-20 w-[min(440px,78vw)] -translate-x-1/2"
+            className="pointer-events-auto relative z-20 w-[min(340px,88vw)] md:absolute md:left-1/2 md:top-[1%] md:w-[min(440px,78vw)] md:-translate-x-1/2"
             {...fade(0.15)}
           >
             <HeroDeskCollage />
@@ -106,7 +109,7 @@ export default function Hero() {
 
           {/* Plant — left of brand; base tilt + hover motion */}
           <motion.div
-            className="pointer-events-auto absolute left-[8%] top-[8%] z-40 w-[min(160px,30vw)] origin-bottom sm:left-[12%] sm:top-[10%] md:left-[16%] md:top-[9%] md:w-[180px] lg:left-[18%]"
+            className="pointer-events-auto relative z-40 w-[min(88px,26vw)] origin-bottom self-start pl-2 md:absolute md:left-[16%] md:top-[9%] md:w-[180px] md:pl-0 lg:left-[18%]"
             initial={{ opacity: 0, y: 16, rotate: -8 }}
             animate={{ opacity: 1, y: 0, rotate: -8 }}
             whileHover={{ scale: 1.07, rotate: -14 }}
@@ -123,68 +126,84 @@ export default function Hero() {
 
           {/* Mood collage — top right */}
           <motion.div
-            className="pointer-events-auto absolute right-[-14%] top-[14%] z-20 hidden origin-top-right sm:block md:right-[-10%] md:top-[16%] lg:right-[-8%]"
+            className="pointer-events-auto relative z-20 origin-top-right scale-[0.72] md:absolute md:right-[-10%] md:top-[16%] md:scale-100 lg:right-[-8%]"
             {...fade(0.2, { rotate: 5 })}
           >
             <MoodCollage />
           </motion.div>
 
           {/* Center brand */}
-          <div className="pointer-events-none absolute left-1/2 top-[48%] z-30 w-[min(960px,94vw)] -translate-x-1/2 -translate-y-1/2 text-center">
+          <div className="pointer-events-none relative z-30 w-full max-w-[960px] text-center md:absolute md:left-1/2 md:top-[48%] md:w-[min(960px,94vw)] md:-translate-x-1/2 md:-translate-y-1/2">
             <motion.h1
               id="hero-brand"
               className="pointer-events-auto flex flex-col items-center justify-center gap-1 font-display md:gap-2"
               {...fade(0.25)}
             >
               <span className="sr-only">Stelora Media</span>
-              <FuzzyText
-                fontSize="clamp(3.1rem, 9.2vw, 7rem)"
-                fontWeight={800}
-                fontFamily='"Space Grotesk", sans-serif'
-                color="#1A307B"
-                baseIntensity={0.14}
-                hoverIntensity={0.42}
-                enableHover
-                fuzzRange={22}
-                letterSpacing={3}
-                className="mx-auto block max-w-full"
+              <ClientOnly
+                fallback={
+                  <span className="mx-auto block max-w-full font-display font-extrabold leading-none tracking-[-0.04em] text-[#1A307B] [font-size:clamp(2.35rem,14vw,7rem)]">
+                    STELORA
+                  </span>
+                }
               >
-                STELORA
-              </FuzzyText>
-              <FuzzyText
-                fontSize="clamp(3.1rem, 9.2vw, 7rem)"
-                fontWeight={800}
-                fontFamily='"Space Grotesk", sans-serif'
-                color="#1A307B"
-                baseIntensity={0.14}
-                hoverIntensity={0.42}
-                enableHover
-                fuzzRange={22}
-                letterSpacing={3}
-                className="mx-auto block max-w-full"
+                <FuzzyText
+                  fontSize="clamp(2.35rem, 14vw, 7rem)"
+                  fontWeight={800}
+                  fontFamily='"Space Grotesk", sans-serif'
+                  color="#1A307B"
+                  baseIntensity={0.14}
+                  hoverIntensity={0.42}
+                  enableHover
+                  fuzzRange={22}
+                  letterSpacing={3}
+                  className="mx-auto block max-w-full"
+                >
+                  STELORA
+                </FuzzyText>
+              </ClientOnly>
+              <ClientOnly
+                fallback={
+                  <span className="mx-auto block max-w-full font-display font-extrabold leading-none tracking-[-0.04em] text-[#1A307B] [font-size:clamp(2.35rem,14vw,7rem)]">
+                    MEDIA
+                  </span>
+                }
               >
-                MEDIA
-              </FuzzyText>
+                <FuzzyText
+                  fontSize="clamp(2.35rem, 14vw, 7rem)"
+                  fontWeight={800}
+                  fontFamily='"Space Grotesk", sans-serif'
+                  color="#1A307B"
+                  baseIntensity={0.14}
+                  hoverIntensity={0.42}
+                  enableHover
+                  fuzzRange={22}
+                  letterSpacing={3}
+                  className="mx-auto block max-w-full"
+                >
+                  MEDIA
+                </FuzzyText>
+              </ClientOnly>
             </motion.h1>
             <motion.p
-              className="mt-4 font-display text-[clamp(0.72rem,1.6vw,1rem)] font-bold uppercase tracking-[0.22em] text-stelora-ink"
+              className="mt-3 font-display text-[clamp(0.68rem,3.4vw,1rem)] font-bold uppercase tracking-[0.18em] text-stelora-ink md:mt-4 md:tracking-[0.22em]"
               {...fade(0.35)}
             >
               We craft. Then we amplify.
             </motion.p>
             <motion.div
-              className="pointer-events-auto mt-4 flex flex-wrap justify-center gap-3 md:mt-5"
+              className="pointer-events-auto mt-4 flex flex-wrap justify-center gap-2.5 md:mt-5 md:gap-3"
               {...fade(0.45)}
             >
               <Link
-                href="#contact"
-                className="btn-pill btn-pill-primary px-6 py-2.5 text-[0.68rem]"
+                href="/contact"
+                className="btn-pill btn-pill-primary px-5 py-2.5 text-[0.62rem] md:px-6 md:text-[0.68rem]"
               >
                 <span>Book a call</span>
               </Link>
               <Link
-                href="#work"
-                className="btn-pill btn-pill-outline px-6 py-2.5 text-[0.68rem]"
+                href="/services"
+                className="btn-pill btn-pill-outline px-5 py-2.5 text-[0.62rem] md:px-6 md:text-[0.68rem]"
               >
                 <span>Explore services</span>
                 <span aria-hidden="true">↗</span>
@@ -194,10 +213,10 @@ export default function Hero() {
 
           {/* Folder — bottom left */}
           <motion.div
-            className="pointer-events-auto absolute bottom-[8%] left-32 z-40 overflow-visible rotate-[-4deg] md:left-44 lg:left-52"
+            className="pointer-events-auto relative z-40 overflow-visible rotate-[-4deg] md:absolute md:bottom-[8%] md:left-44 lg:left-52"
             {...fade(0.4, { rotate: -4 })}
           >
-            <div className="overflow-visible p-12 -m-12">
+            <div className="-m-4 overflow-visible p-4 md:-m-12 md:p-12">
               <Folder
                 color="#1A307B"
                 size={1.18}
@@ -218,12 +237,13 @@ export default function Hero() {
 
           {/* Tear ticket — vintage admit ticket */}
           <motion.div
-            className="ticket-hero pointer-events-auto absolute bottom-[5%] left-[48%] z-30 w-[min(320px,58vw)] origin-bottom -translate-x-1/2 scale-[0.68] sm:scale-[0.74] md:left-[44%] md:scale-[0.8] lg:scale-[0.84]"
+            className="ticket-hero pointer-events-auto relative z-30 w-[min(300px,92vw)] origin-bottom scale-[0.92] md:absolute md:bottom-[5%] md:left-[44%] md:w-[min(320px,58vw)] md:-translate-x-1/2 md:scale-[0.8] lg:scale-[0.84]"
             {...fade(0.5, { rotate: -3 })}
             onMouseEnter={() => setTicketHover(true)}
             onMouseLeave={() => setTicketHover(false)}
           >
             <div className="relative">
+              <ClientOnly>
               <TearTicket
                 className="tear-ticket--vintage"
                 image="/images/atmosphere.jpg"
@@ -294,6 +314,7 @@ export default function Hero() {
                   </div>
                 </div>
               </TearTicket>
+              </ClientOnly>
 
               <TicketTearHint visible={!ticketTorn && ticketHover} />
             </div>
@@ -301,7 +322,7 @@ export default function Hero() {
 
           {/* Terminal */}
           <motion.div
-            className="pointer-events-auto absolute bottom-[4%] left-1/2 z-20 w-[min(280px,70vw)] -translate-x-1/2 rotate-[2deg] md:left-auto md:right-[30%] md:translate-x-0"
+            className="pointer-events-auto relative z-20 w-full max-w-[280px] rotate-[2deg] md:absolute md:bottom-[4%] md:left-auto md:right-[30%] md:w-[min(280px,70vw)]"
             {...fade(0.55, { rotate: 2 })}
           >
             <div className="overflow-hidden rounded-xl border border-stelora-line bg-stelora-surface/95 shadow-[0_12px_28px_rgba(12,22,56,0.1)] backdrop-blur-sm">
@@ -322,7 +343,7 @@ social/ seo/ ads/ brand/`}
 
           {/* Music card — bottom right */}
           <motion.div
-            className="pointer-events-auto absolute bottom-[8%] right-1 z-20 rotate-[4deg] md:right-4"
+            className="pointer-events-auto relative z-20 rotate-[4deg] md:absolute md:bottom-[8%] md:right-4"
             {...fade(0.45, { rotate: 4 })}
           >
             <MusicCard />
@@ -330,7 +351,7 @@ social/ seo/ ads/ brand/`}
 
           {/* LED pocket watch */}
           <motion.div
-            className="absolute right-[20%] top-[36%] z-10 hidden rotate-[10deg] md:block"
+            className="relative z-10 rotate-[10deg] md:absolute md:right-[20%] md:top-[36%]"
             {...fade(0.6, { rotate: 10 })}
             whileHover={{ scale: 1.06, rotate: 6 }}
           >

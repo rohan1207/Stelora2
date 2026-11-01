@@ -17,7 +17,7 @@ export default function IdCardDragHint({ visible = true }) {
     <AnimatePresence>
       {visible ? (
         <motion.div
-          className="pointer-events-none absolute left-[1.5%] top-[38%] z-[18] flex flex-col items-center gap-1 sm:left-[2.5%] md:left-[3.5%] md:top-[36%]"
+          className="pointer-events-none absolute left-[6%] top-[18%] z-[18] flex flex-col items-center gap-1 sm:left-[2.5%] sm:top-[28%] md:left-[3.5%] md:top-[36%]"
           initial={{ opacity: 0, x: -8 }}
           animate={{ opacity: 1, x: 0 }}
           exit={{ opacity: 0, x: -6 }}

@@ -4,10 +4,12 @@ import Link from "next/link";
 import { AnimatePresence, motion } from "framer-motion";
 
 const NAV_LINKS = [
-  { href: "#focus", label: "Services" },
-  { href: "#work", label: "Work" },
-  { href: "#about", label: "About" },
-  { href: "#contact", label: "Contact" },
+  { href: "/", label: "Home" },
+  { href: "/services", label: "Services" },
+  { href: "/about", label: "About us" },
+  { href: "/packages", label: "Packages" },
+  { href: "/testimonials", label: "Client testimonials" },
+  { href: "/case-studies", label: "Case studies" },
 ];
 
 export default function Navbar() {
@@ -64,12 +66,12 @@ export default function Navbar() {
             />
           </Link>
 
-          <ul className="hidden flex-1 items-center justify-center gap-8 lg:flex lg:gap-12">
+          <ul className="hidden flex-1 items-center justify-center gap-4 xl:gap-6 2xl:gap-8 lg:flex">
             {NAV_LINKS.map((link) => (
-              <li key={link.href}>
+              <li key={link.href + link.label}>
                 <Link
                   href={link.href}
-                  className="font-body text-[0.86rem] font-bold uppercase tracking-[0.18em] text-stelora-ink/80 transition-colors duration-200 hover:text-stelora-navy md:text-[0.92rem]"
+                  className="whitespace-nowrap font-body text-[0.72rem] font-bold uppercase tracking-[0.14em] text-stelora-ink/80 transition-colors duration-200 hover:text-stelora-navy xl:text-[0.78rem] xl:tracking-[0.16em]"
                 >
                   {link.label}
                 </Link>
@@ -77,9 +79,9 @@ export default function Navbar() {
             ))}
           </ul>
 
-          <div className="hidden shrink-0 items-center md:flex">
-            <Link href="#contact" className="btn-pill btn-pill-primary px-6 py-3 text-[0.75rem]">
-              <span>Start a project</span>
+          <div className="hidden shrink-0 items-center lg:flex">
+            <Link href="/contact" className="btn-pill btn-pill-primary px-5 py-2.5 text-[0.7rem] xl:px-6 xl:py-3 xl:text-[0.75rem]">
+              <span>Contact us</span>
               <span aria-hidden="true" className="text-[0.9em]">
                 ↗
               </span>
@@ -88,7 +90,7 @@ export default function Navbar() {
 
           <button
             type="button"
-            className="relative z-50 flex h-11 w-11 items-center justify-center md:hidden"
+            className="relative z-50 flex h-11 w-11 items-center justify-center lg:hidden"
             aria-label={open ? "Close menu" : "Open menu"}
             aria-expanded={open}
             onClick={() => setOpen((v) => !v)}
@@ -121,15 +123,15 @@ export default function Navbar() {
               animate={{ opacity: 1, height: "auto" }}
               exit={{ opacity: 0, height: 0 }}
               transition={{ duration: 0.22, ease: [0.22, 1, 0.36, 1] }}
-              className="overflow-hidden border-t border-stelora-line md:hidden"
+              className="overflow-hidden border-t border-stelora-line lg:hidden"
             >
               <ul className="flex flex-col gap-1 px-6 py-7">
                 {NAV_LINKS.map((link) => (
-                  <li key={link.href}>
+                  <li key={link.href + link.label}>
                     <Link
                       href={link.href}
                       onClick={() => setOpen(false)}
-                      className="font-display block py-2.5 text-2xl font-bold uppercase tracking-hero text-stelora-navy"
+                      className="font-display block py-2.5 text-xl font-bold uppercase tracking-hero text-stelora-navy sm:text-2xl"
                     >
                       {link.label}
                     </Link>
@@ -137,11 +139,11 @@ export default function Navbar() {
                 ))}
                 <li className="pt-4">
                   <Link
-                    href="#contact"
+                    href="/contact"
                     onClick={() => setOpen(false)}
                     className="btn-pill btn-pill-primary px-6 py-3.5 text-xs"
                   >
-                    <span>Start a project</span>
+                    <span>Contact us</span>
                     <span aria-hidden="true">↗</span>
                   </Link>
                 </li>

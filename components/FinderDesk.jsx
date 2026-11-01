@@ -160,7 +160,7 @@ export default function FinderDesk() {
   return (
     <section
       id="work"
-      className="finder-desk relative flex h-[100svh] items-stretch border-t border-stelora-line bg-[#e8e4dc]"
+      className="finder-desk relative flex min-h-[100svh] items-stretch border-t border-stelora-line bg-[#e8e4dc] md:h-[100svh]"
       aria-labelledby="finder-heading"
     >
       <div

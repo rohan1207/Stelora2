@@ -1,89 +1,113 @@
-/* —— Phone gate (phones only; laptop/desktop untouched) —— */
-.phone-block {
-  display: none;
-}
-
+/* —— Phone / small screens —— */
 @media (max-width: 819px) {
   html,
   body {
-    overflow: hidden !important;
-    height: 100%;
-    overscroll-behavior: none;
+    overflow-x: hidden;
+    max-width: 100%;
   }
 
-  .phone-block {
-    position: fixed;
-    inset: 0;
-    z-index: 2147483000;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 1.5rem;
-    background:
-      radial-gradient(70% 55% at 50% 20%, rgba(26, 48, 123, 0.12), transparent 60%),
-      linear-gradient(180deg, #f7f5ef 0%, #f4f2ec 55%, #ebe8e0 100%);
+  img,
+  video,
+  canvas {
+    max-width: 100%;
   }
 
-  .phone-block__glow {
-    position: absolute;
-    inset: 18% 10% auto;
-    height: 40%;
-    background: radial-gradient(circle at 50% 50%, rgba(26, 48, 123, 0.1), transparent 70%);
-    pointer-events: none;
+  header nav {
+    gap: 0.75rem !important;
+    padding-left: 1rem !important;
+    padding-right: 1rem !important;
+    height: 4.25rem !important;
   }
 
-  .phone-block__card {
-    position: relative;
-    width: min(22rem, 100%);
-    text-align: center;
-    padding: 1.75rem 1.35rem;
-    border-radius: 1.25rem;
-    border: 1px solid var(--stelora-line, #d4d7e2);
-    background: rgba(255, 255, 255, 0.92);
-    box-shadow: 0 18px 40px rgba(12, 22, 56, 0.1);
+  header nav img {
+    height: 2.4rem !important;
   }
 
-  .phone-block__kicker {
-    margin: 0;
-    font-family: var(--font-display), "Space Grotesk", sans-serif;
-    font-size: 0.62rem;
-    font-weight: 700;
-    letter-spacing: 0.22em;
-    text-transform: uppercase;
-    color: var(--stelora-muted, #5c6480);
+  .hero-desk-collage {
+    max-height: 132px;
   }
 
-  .phone-block__title {
-    margin: 0.7rem 0 0;
-    font-family: var(--font-display), "Space Grotesk", sans-serif;
-    font-size: clamp(1.45rem, 6.5vw, 1.85rem);
-    font-weight: 700;
-    letter-spacing: -0.035em;
-    line-height: 1.15;
-    color: var(--stelora-navy, #1a307b);
+  .lanyard-wrapper {
+    transform: scale(0.78);
+    transform-origin: center 18%;
   }
 
-  .phone-block__body {
-    margin: 0.75rem 0 0;
-    font-family: var(--font-body), Manrope, sans-serif;
-    font-size: 0.92rem;
-    line-height: 1.55;
-    color: var(--stelora-muted, #5c6480);
+  .lanyard-idle-sway {
+    transform-origin: 50% 8%;
   }
 
-  .phone-block__hint {
-    margin: 1.1rem 0 0;
-    font-family: var(--font-display), "Space Grotesk", sans-serif;
-    font-size: 0.58rem;
-    font-weight: 700;
-    letter-spacing: 0.18em;
-    text-transform: uppercase;
-    color: rgba(26, 48, 123, 0.55);
+  .palm-hint-icon {
+    font-size: 1.65rem;
   }
 
-  /* Hide the interactive site on phones — gate only */
-  .site-desktop {
-    display: none !important;
+  .finder-desk {
+    height: auto !important;
+    min-height: 100svh;
+  }
+
+  .finder-window {
+    min-height: 520px;
+    border-radius: 12px;
+  }
+
+  #photoshoot {
+    height: auto !important;
+    min-height: 100svh;
+  }
+
+  #photoshoot .sticky {
+    position: relative !important;
+    min-height: 0;
+    height: auto;
+  }
+
+  #photoshoot [style*="minHeight"] {
+    min-height: 360px !important;
+  }
+
+  #orbit {
+    height: auto !important;
+  }
+
+  #orbit .sticky {
+    position: relative !important;
+    height: auto;
+    min-height: 100svh;
+    max-height: none;
+  }
+
+  #reel .sticky {
+    max-height: none;
+  }
+
+  #lift {
+    height: auto !important;
+    max-height: none !important;
+    min-height: 100svh;
+  }
+
+  .stelora-breaker__shell {
+    width: 100%;
+    max-height: none;
+    min-height: 460px;
+    border-radius: 1.1rem;
+  }
+
+  .stelora-breaker__stage {
+    min-height: 340px;
+  }
+
+  .stelora-breaker__canvas {
+    cursor: auto;
+  }
+
+  .stelora-breaker__legend {
+    gap: 0.3rem 0.5rem;
+    padding: 0.4rem 0.65rem 0.5rem;
+  }
+
+  footer {
+    padding-left: 0;
   }
 }
 
@@ -93,7 +117,6 @@
     --stelora-laptop-pad-x: clamp(0.75rem, 2.2vw, 1.75rem);
   }
 
-  /* Slightly tighter nav on 13–14" widths */
   header nav {
     gap: 1rem !important;
     padding-left: var(--stelora-laptop-pad-x) !important;
@@ -104,7 +127,6 @@
     gap: 1.35rem !important;
   }
 
-  /* Hero desk props — pull in from edges so they fit MacBook widths */
   .hero-desk-collage {
     max-height: 200px;
   }
@@ -119,7 +141,6 @@
     padding-right: var(--stelora-laptop-pad-x);
   }
 
-  /* Circular / flex stage: keep content inside shorter laptop viewports */
   #orbit .sticky,
   #reel .sticky {
     max-height: 100svh;
@@ -129,12 +150,10 @@
     max-height: min(640px, calc(100svh - 170px));
   }
 
-  /* Finder window breathing room on 13" */
   .finder-window {
     border-radius: 12px;
   }
 
-  /* Soften huge display type on mid laptop widths without changing desktop clamps */
   #reel h2,
   #orbit h2,
   #photoshoot h2,
@@ -143,7 +162,6 @@
   }
 }
 
-/* Short MacBook / laptop viewports — denser first screen, desktop height untouched */
 @media (min-width: 820px) and (max-height: 900px) {
   .hero-desk-collage {
     max-height: 168px;
@@ -163,10 +181,7 @@
 }
 
 @media (min-width: 820px) and (max-width: 1280px) {
-  /* 13" MacBook Air CSS widths — slightly smaller ticket footprint */
   section[aria-labelledby="hero-brand"] .ticket-hero {
     width: min(280px, 50vw) !important;
   }
 }
-
-/* Desktop wide (≥1512) intentionally has no rules here */

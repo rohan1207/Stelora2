@@ -1,5 +1,6 @@
 import dynamic from "next/dynamic";
 import { motion } from "framer-motion";
+import ClientOnly from "@/components/ClientOnly";
 
 const DomeGallery = dynamic(() => import("@/components/DomeGallery"), {
   ssr: false,
@@ -88,6 +89,13 @@ export default function CaptureDome() {
         </div>
 
         <div className="relative z-10 w-full min-h-0 flex-1" style={{ minHeight: 560 }}>
+          <ClientOnly
+            fallback={
+              <div className="flex h-full min-h-[480px] items-center justify-center font-body text-sm text-stelora-muted">
+                Loading gallery…
+              </div>
+            }
+          >
           <DomeGallery
             images={SHOOT_IMAGES}
             fit={0.95}
@@ -106,6 +114,7 @@ export default function CaptureDome() {
             autoSpinSpeed={3.2}
             hoverInfluence={2}
           />
+          </ClientOnly>
         </div>
       </div>
     </section>

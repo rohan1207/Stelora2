@@ -1,21 +1,23 @@
 import Image from "next/image";
 import Link from "next/link";
 import dynamic from "next/dynamic";
+import ClientOnly from "@/components/ClientOnly";
+import { SITE } from "@/data/siteContent";
 
 const TechText = dynamic(() => import("@/components/TechText"), { ssr: false });
 
 const YEAR = new Date().getFullYear();
 
 const SOCIAL = [
-  { label: "Instagram", href: "#contact" },
-  { label: "LinkedIn", href: "#contact" },
-  { label: "Behance", href: "#contact" },
+  { label: "Instagram", href: SITE.instagramUrl },
+  { label: "LinkedIn", href: SITE.linkedinUrl },
+  { label: "Email", href: `mailto:${SITE.email}` },
 ];
 
 const OTHER = [
-  { label: "Privacy Policy", href: "#contact" },
-  { label: "Terms of Use", href: "#contact" },
-  { label: "Careers", href: "#contact" },
+  { label: "Services", href: "/services" },
+  { label: "Packages", href: "/packages" },
+  { label: "Case studies", href: "/case-studies" },
 ];
 
 function CornerArrow() {
@@ -64,7 +66,7 @@ export default function Footer() {
         aria-hidden
       />
 
-      <div className="relative z-10 mx-auto w-full max-w-[1600px] px-5 pb-8 pt-16 sm:px-8 md:px-10 md:pt-20 lg:px-14 lg:pt-24">
+      <div className="relative z-10 mx-auto w-full max-w-[1600px] px-4 pb-8 pt-12 sm:px-8 md:px-10 md:pt-20 lg:px-14 lg:pt-24">
         {/* Top CTA */}
         <div className="flex items-start justify-between gap-6 border-b border-stelora-line/80 pb-10 md:gap-8 md:pb-14">
           <div className="min-w-0 flex-1">
@@ -76,6 +78,13 @@ export default function Footer() {
                 className="relative w-full"
                 style={{ height: "clamp(3.25rem, 8.5vw, 5.5rem)" }}
               >
+                <ClientOnly
+                  fallback={
+                    <p className="font-display text-[clamp(1.85rem,5.5vw,3.4rem)] font-bold leading-[0.95] tracking-[-0.035em] text-stelora-navy">
+                      READY TO DISCUSS
+                    </p>
+                  }
+                >
                 <TechText
                   text="READY TO DISCUSS"
                   fontFamily='"Space Grotesk", sans-serif'
@@ -99,11 +108,19 @@ export default function Footer() {
                   sweep
                   speed={0.85}
                 />
+                </ClientOnly>
               </div>
               <div
                 className="relative w-full"
                 style={{ height: "clamp(3.25rem, 8.5vw, 5.5rem)", marginTop: "-0.15em" }}
               >
+                <ClientOnly
+                  fallback={
+                    <p className="font-display text-[clamp(1.85rem,5.5vw,3.4rem)] font-bold leading-[0.95] tracking-[-0.035em] text-stelora-navy">
+                      YOUR NEXT PROJECT?
+                    </p>
+                  }
+                >
                 <TechText
                   text="YOUR NEXT PROJECT?"
                   fontFamily='"Space Grotesk", sans-serif'
@@ -127,13 +144,14 @@ export default function Footer() {
                   sweep
                   speed={0.85}
                 />
+                </ClientOnly>
               </div>
             </div>
           </div>
           <a
-            href="#contact"
-            className="mt-2 hidden shrink-0 text-stelora-navy transition-transform duration-500 hover:translate-x-1 hover:translate-y-1 md:mt-4 md:block"
-            aria-label="Stay on Stelora home"
+            href={`mailto:${SITE.email}`}
+            className="mt-1 hidden shrink-0 text-stelora-navy transition-transform duration-500 hover:translate-x-1 hover:translate-y-1 sm:mt-2 sm:block md:mt-4"
+            aria-label="Email Stelora Media"
           >
             <CornerArrow />
           </a>
@@ -143,7 +161,7 @@ export default function Footer() {
         <div className="grid gap-12 border-b border-stelora-line/80 py-12 md:grid-cols-2 md:gap-10 md:py-16 lg:grid-cols-4 lg:gap-8">
           <div>
             <Link
-              href="#contact"
+              href="/contact"
               className="btn-pill btn-pill-outline inline-flex px-6 py-3.5 text-[0.72rem] text-stelora-navy"
             >
               <span aria-hidden>↗</span>
@@ -157,20 +175,20 @@ export default function Footer() {
                 Hello
               </p>
               <a
-                href="#contact"
+                href={`mailto:${SITE.email}`}
                 className="mt-4 block font-body text-[0.95rem] text-stelora-ink transition-colors hover:text-stelora-navy"
               >
-                hello@stelora.com
+                {SITE.email}
               </a>
               <p className="mt-3 font-body text-[0.88rem] leading-relaxed text-stelora-muted">
                 Headquarters
                 <br />
-                Remote-first · Worldwide
+                {SITE.location}
               </p>
               <p className="mt-3 font-body text-[0.88rem] leading-relaxed text-stelora-muted">
                 Studio
                 <br />
-                Social · SEO · Brand · Shoot
+                Social · SEO · Brand · Ads · Web
               </p>
             </div>
             <div>
@@ -194,6 +212,9 @@ export default function Footer() {
                 <li key={item.label}>
                   <a
                     href={item.href}
+                    {...(item.href.startsWith("http")
+                      ? { target: "_blank", rel: "noopener noreferrer" }
+                      : {})}
                     className="font-display text-[0.78rem] font-semibold uppercase tracking-[0.16em] text-stelora-ink transition-colors hover:text-stelora-navy"
                   >
                     {item.label}

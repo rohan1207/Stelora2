@@ -38,8 +38,9 @@ export default function BrandFocus() {
           pauseBetweenAnimations={0.85}
         />
 
-        <p className="mt-8 max-w-sm font-body text-[0.88rem] leading-relaxed text-stelora-muted md:mt-10 md:text-[0.95rem]">
-          Clarity in craft. Sharpness in growth. Every brand deserves to be seen.
+        <p className="mt-8 max-w-md font-body text-[0.88rem] leading-relaxed text-stelora-muted md:mt-10 md:text-[0.95rem]">
+          Performance marketing, social media, and web development for brands that want
+          measurable growth — from Pune, across India.
         </p>
       </div>
     </section>
